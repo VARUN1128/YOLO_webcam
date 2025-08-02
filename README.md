@@ -1,9 +1,115 @@
-Real-Time Object Detection with YOLOv8A Python script to perform real-time object detection on video streams using the YOLOv8 model. The script can process video from a webcam or a file, display the live feed with bounding boxes, and save the resulting video.FeaturesReal-Time Detection: Processes video streams with low latency.Flexible Input: Supports both live webcam feeds and pre-recorded video files.Save Output: Automatically saves the processed video with detections to an .avi file.Customizable Model: Easily switch between different YOLOv8 models (e.g., yolov8n.pt, yolov8s.pt).Easy to Use: Packaged into a single, straightforward function.RequirementsTo run this script, you'll need Python 3.7+ and the following libraries:pip install ultralytics opencv-python
-You will also need a YOLOv8 model weights file (.pt). The script is configured to use yolov8n.pt, which will be downloaded automatically by the ultralytics library if not found locally.UsageClone the Repository (or save the script):git clone <your-repo-url>
-cd <your-repo-folder>
-Alternatively, save the code as detect_video.py.Organize Files:Place the YOLOv8 model weights in a YOLO-Weights directory, or update the path in the script./your_project_folder
-|-- /YOLO-Weights
-|   |-- yolov8n.pt
-|-- detect_video.py
-Run the Script:Execute the script from your terminal.python detect_video.py
-View Output:A window titled "YOLOv8 Live Detection" will show the live video feed.Press 'q' to stop the script.The output video will be saved as output_video.avi in the project directory.CustomizationTo change the default behavior, modify the variables in the if __name__ == "__main__": block of the script:MODEL: Path to the YOLOv8 model file.INPUT: Video source. Use 0 for the default webcam or provide a path to a video file (e.g., "videos/my_test.mp4").OUTPUT: Filename for the saved video.Code ExplanationThe script is organized into a single function, run_yolo_on_video, for modularity and ease of use.Initialization:cv2.VideoCapture(video_source): Initializes video capture.cv2.VideoWriter(...): Creates a video writer to save processed frames.YOLO(model_path): Loads the pre-trained YOLOv8 model.Main Loop (while True):Reads frames one by one from the video source.Passes each frame to the YOLO model for object detection.Uses results[0].plot() to draw bounding boxes on the frame.Writes the processed frame to the output file and displays it.Cleanup:Releases the video capture and writer objects.Closes all OpenCV windows.LicenseThis project is licensed under the MIT License - see the LICENSE.md file for details.ContributingContributions are welcome! Please feel free to submit a pull request or open an issue if you have suggestions for improvements.
+
+
+```markdown
+# 🦾 YOLOv8 Real-Time Object Detection
+
+This repository contains a Python script to perform **real-time object detection** on video input (from webcam or file) using [Ultralytics YOLOv8](https://docs.ultralytics.com/) and OpenCV.
+
+![YOLOv8 Detection Demo](https://github.com/ultralytics/assets/raw/main/yolov8/assets/banner_yolov8.png)
+
+## 🚀 Features
+
+- Uses [YOLOv8](https://github.com/ultralytics/ultralytics) for object detection
+- Live webcam or video file input
+- Real-time frame-by-frame detection
+- Output saved as annotated video
+- Press `q` to exit the live view
+
+---
+
+## 📁 Project Structure
+
+```
+
+.
+├── yolo\_video.py           # Main script for detection
+├── output\_video.avi        # Output (generated after run)
+├── YOLO-Weights/
+│   └── yolov8n.pt          # Pre-trained YOLOv8 model weights
+└── README.md               # Project documentation
+
+````
+
+---
+
+## 📦 Requirements
+
+- Python 3.7+
+- [Ultralytics](https://pypi.org/project/ultralytics/)
+- [OpenCV](https://pypi.org/project/opencv-python/)
+
+Install all dependencies with:
+
+```bash
+pip install ultralytics opencv-python
+````
+
+---
+
+## ⚙️ Usage
+
+### 1. Clone this repository
+
+```bash
+git clone https://github.com/yourusername/yolov8-video-detection.git
+cd yolov8-video-detection
+```
+
+### 2. Place your YOLOv8 weights
+
+Place your `.pt` model file (e.g., `yolov8n.pt`) inside the `YOLO-Weights/` directory. You can download official weights from [Ultralytics YOLOv8 Releases](https://github.com/ultralytics/ultralytics/releases).
+
+### 3. Run the script
+
+#### For Webcam Input
+
+```bash
+python yolo_video.py
+```
+
+#### For Video File Input
+
+Update the `INPUT` variable in the script:
+
+```python
+INPUT = "input_video.mp4"
+```
+
+---
+
+## 📝 Script Overview
+
+```python
+model = YOLO(model_path)                # Load YOLOv8 model
+results = model(img)                    # Perform detection
+processed_img = results[0].plot()       # Draw bounding boxes
+```
+
+* `cv2.VideoCapture(0)` – reads webcam (change `0` to filename for video input)
+* `cv2.imshow()` – displays live annotated feed
+* `cv2.VideoWriter()` – saves annotated output to a file
+
+---
+
+## 📌 Notes
+
+* Press **`q`** to quit the live display window.
+* Default video output is saved as `output_video.avi`.
+
+---
+
+## 🧠 Credits
+
+* [Ultralytics](https://github.com/ultralytics/ultralytics) for the YOLOv8 models
+* [OpenCV](https://opencv.org/) for video handling
+
+---
+
+## 📜 License
+
+This project is licensed under the [MIT License](LICENSE).
+
+```
+
+Let me know if you want to add a demo video/gif, requirements.txt, or GitHub Actions for auto-testing!
+```
