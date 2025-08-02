@@ -1,73 +1,9 @@
-YOLOv8 Live Video Object Detection
-This script uses the YOLOv8 model to perform real-time object detection on a video feed from a webcam or a video file. It displays the processed video stream with bounding boxes around detected objects and saves the output to an .avi video file.
-
-Requirements
-Before running the script, you need to install the necessary Python libraries. You can install them using pip:
-
-pip install ultralytics opencv-python
-
-You will also need the YOLOv8 model weights file (.pt). The script is configured to use yolov8n.pt, which will be downloaded automatically by the ultralytics library if it's not found locally.
-
-How to Run
-Save the Code: Save the Python code as a file (e.g., detect_video.py).
-
-Organize Files: Make sure your folder structure matches the paths in the script, or update the paths accordingly. The script expects a YOLO-Weights folder.
-
-/your_project_folder
+Real-Time Object Detection with YOLOv8A Python script to perform real-time object detection on video streams using the YOLOv8 model. The script can process video from a webcam or a file, display the live feed with bounding boxes, and save the resulting video.FeaturesReal-Time Detection: Processes video streams with low latency.Flexible Input: Supports both live webcam feeds and pre-recorded video files.Save Output: Automatically saves the processed video with detections to an .avi file.Customizable Model: Easily switch between different YOLOv8 models (e.g., yolov8n.pt, yolov8s.pt).Easy to Use: Packaged into a single, straightforward function.RequirementsTo run this script, you'll need Python 3.7+ and the following libraries:pip install ultralytics opencv-python
+You will also need a YOLOv8 model weights file (.pt). The script is configured to use yolov8n.pt, which will be downloaded automatically by the ultralytics library if not found locally.UsageClone the Repository (or save the script):git clone <your-repo-url>
+cd <your-repo-folder>
+Alternatively, save the code as detect_video.py.Organize Files:Place the YOLOv8 model weights in a YOLO-Weights directory, or update the path in the script./your_project_folder
 |-- /YOLO-Weights
 |   |-- yolov8n.pt
 |-- detect_video.py
-
-Execute from Terminal: Open a terminal or command prompt, navigate to your project folder, and run the script:
-
-python detect_video.py
-
-View Output:
-
-A window titled "YOLOv8 Live Detection" will appear, showing the live video feed with detections.
-
-Press the 'q' key to stop the script.
-
-An output_video.avi file will be saved in your project directory.
-
-Customization
-You can easily change the input and output by modifying these lines at the bottom of the script:
-
-MODEL: Change the path to use a different YOLOv8 model (e.g., yolov8s.pt for the small model).
-
-INPUT: Set to 0 for your primary webcam. To use a video file, change it to the file path (e.g., "path/to/my_video.mp4").
-
-OUTPUT: Change the filename for the saved video (e.g., "my_detection.avi").
-
-Code Explanation
-The script is organized into a single function, run_yolo_on_video, for modularity and ease of use.
-
-Initialization:
-
-cv2.VideoCapture(video_source): Initializes the video capture from either a webcam (0) or a video file.
-
-cv2.VideoWriter(...): Creates a video writer object to save the processed frames into an .avi file.
-
-YOLO(model_path): Loads the specified pre-trained YOLOv8 model.
-
-Main Loop (while True):
-
-cap.read(): Reads one frame at a time from the video source.
-
-model(img): Passes the current frame to the YOLO model for object detection.
-
-results[0].plot(): Takes the detection results (bounding boxes, labels, confidence scores) and draws them onto the original frame.
-
-output.write(processed_img): Writes the frame with the detections to the output video file.
-
-cv2.imshow(...): Displays the processed frame in a window.
-
-cv2.waitKey(1): Waits for a key press. The loop breaks if the 'q' key is pressed.
-
-Cleanup:
-
-cap.release(): Releases the video capture device.
-
-output.release(): Finalizes and saves the output video file.
-
-cv2.destroyAllWindows(): Closes all OpenCV windows.
+Run the Script:Execute the script from your terminal.python detect_video.py
+View Output:A window titled "YOLOv8 Live Detection" will show the live video feed.Press 'q' to stop the script.The output video will be saved as output_video.avi in the project directory.CustomizationTo change the default behavior, modify the variables in the if __name__ == "__main__": block of the script:MODEL: Path to the YOLOv8 model file.INPUT: Video source. Use 0 for the default webcam or provide a path to a video file (e.g., "videos/my_test.mp4").OUTPUT: Filename for the saved video.Code ExplanationThe script is organized into a single function, run_yolo_on_video, for modularity and ease of use.Initialization:cv2.VideoCapture(video_source): Initializes video capture.cv2.VideoWriter(...): Creates a video writer to save processed frames.YOLO(model_path): Loads the pre-trained YOLOv8 model.Main Loop (while True):Reads frames one by one from the video source.Passes each frame to the YOLO model for object detection.Uses results[0].plot() to draw bounding boxes on the frame.Writes the processed frame to the output file and displays it.Cleanup:Releases the video capture and writer objects.Closes all OpenCV windows.LicenseThis project is licensed under the MIT License - see the LICENSE.md file for details.ContributingContributions are welcome! Please feel free to submit a pull request or open an issue if you have suggestions for improvements.
